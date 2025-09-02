@@ -1,29 +1,35 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = 'system' | 'light' | 'dark';
+type Theme = "system" | "light" | "dark";
 
 interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
-  resolvedTheme: 'light' | 'dark';
+  resolvedTheme: "light" | "dark";
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export function ThemeProvider({ children, enabled = true }: { children: React.ReactNode; enabled?: boolean }) {
-  const [theme, setThemeState] = useState<Theme>('system');
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
+export function ThemeProvider({
+  children,
+  enabled = true,
+}: {
+  children: React.ReactNode;
+  enabled?: boolean;
+}) {
+  const [theme, setThemeState] = useState<Theme>("system");
+  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
-    localStorage.setItem('theme', newTheme);
+    localStorage.setItem("theme", newTheme);
   };
 
   useEffect(() => {
-    const stored = localStorage.getItem('theme') as Theme;
-    if (stored && ['system', 'light', 'dark'].includes(stored)) {
+    const stored = localStorage.getItem("theme") as Theme;
+    if (stored && ["system", "light", "dark"].includes(stored)) {
       setThemeState(stored);
     }
   }, []);
@@ -31,13 +37,15 @@ export function ThemeProvider({ children, enabled = true }: { children: React.Re
   useEffect(() => {
     const updateResolvedTheme = () => {
       if (!enabled) {
-        setResolvedTheme('light');
+        setResolvedTheme("light");
         return;
       }
-      
-      if (theme === 'system') {
-        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        setResolvedTheme(isDark ? 'dark' : 'light');
+
+      if (theme === "system") {
+        const isDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        setResolvedTheme(isDark ? "dark" : "light");
       } else {
         setResolvedTheme(theme);
       }
@@ -45,8 +53,8 @@ export function ThemeProvider({ children, enabled = true }: { children: React.Re
 
     updateResolvedTheme();
 
-    if (enabled && theme === 'system') {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    if (enabled && theme === "system") {
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
       mediaQuery.addListener(updateResolvedTheme);
       return () => mediaQuery.removeListener(updateResolvedTheme);
     }
@@ -54,10 +62,10 @@ export function ThemeProvider({ children, enabled = true }: { children: React.Re
 
   useEffect(() => {
     const root = window.document.documentElement;
-    if (resolvedTheme === 'dark') {
-      root.classList.add('dark');
+    if (resolvedTheme === "dark") {
+      root.classList.add("dark");
     } else {
-      root.classList.remove('dark');
+      root.classList.remove("dark");
     }
   }, [resolvedTheme]);
 
@@ -71,7 +79,7 @@ export function ThemeProvider({ children, enabled = true }: { children: React.Re
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+    throw new Error("useTheme must be used within a ThemeProvider");
   }
   return context;
 }

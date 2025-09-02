@@ -27,14 +27,14 @@ export const betaFeaturesFlag = flag({
   },
 });
 
-export const darkModeFlag = flag({
-  key: "dark-mode",
+export const themingFlag = flag({
+  key: "theming",
   async decide() {
     try {
-      const value = await get("dark-mode");
+      const value = await get("theming");
       return value !== undefined ? Boolean(value) : false;
     } catch {
-      console.warn("Edge config lookup failed for `dark-mode`");
+      console.warn("Edge config lookup failed for `theming`");
       return false;
     }
   },

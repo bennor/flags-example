@@ -1,18 +1,9 @@
+import type { FlagStatus } from "../../types/flags";
+import { NewDesignSection } from "../new-design-section";
 import { BetaFeaturesSection } from "./beta-features-section";
 import { FlagStatusDashboard } from "./flag-status-dashboard";
-import { NewDesignSection } from "./new-design-section";
 
-interface StandardLayoutProps {
-  showNewDesign: boolean;
-  showBetaFeatures: boolean;
-  enableTheming: boolean;
-}
-
-export function StandardLayout({
-  showNewDesign,
-  showBetaFeatures,
-  enableTheming,
-}: StandardLayoutProps) {
+export function StandardLayout(flags: FlagStatus) {
   return (
     <div className="min-h-screen transition-colors duration-300 bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
       <div className="container mx-auto px-6 py-12">
@@ -26,15 +17,11 @@ export function StandardLayout({
         </header>
 
         <div className="max-w-4xl mx-auto space-y-8">
-          <FlagStatusDashboard
-            showNewDesign={showNewDesign}
-            showBetaFeatures={showBetaFeatures}
-            enableTheming={enableTheming}
-          />
+          <FlagStatusDashboard {...flags} />
 
-          {showNewDesign && <NewDesignSection />}
+          {flags.showNewDesign && <NewDesignSection />}
 
-          {showBetaFeatures && <BetaFeaturesSection />}
+          {flags.showBetaFeatures && <BetaFeaturesSection />}
         </div>
       </div>
     </div>

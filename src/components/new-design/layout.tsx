@@ -1,16 +1,18 @@
+import type { FlagStatus } from "../../types/flags";
+import { BrutalistMode } from "../brutalist-mode";
 import { BetaFeaturesSection } from "./beta-features-section";
-import { BrutalistMode } from "./brutalist-mode";
 import { FlagStatusDashboard } from "./flag-status-dashboard";
 
-interface BrutalistLayoutProps {
-  showBetaFeatures: boolean;
-  enableTheming: boolean;
-}
-
-export function BrutalistLayout({
+export function NewDesignLayout({
   showBetaFeatures,
   enableTheming,
-}: BrutalistLayoutProps) {
+}: Pick<FlagStatus, "showBetaFeatures" | "enableTheming">) {
+  const flags: FlagStatus = {
+    showNewDesign: true,
+    showBetaFeatures,
+    enableTheming,
+  };
+
   return (
     <div className="min-h-screen font-mono bg-white dark:bg-black text-black dark:text-white">
       <div className="p-8">
@@ -24,16 +26,11 @@ export function BrutalistLayout({
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          <FlagStatusDashboard
-            showNewDesign={true}
-            showBetaFeatures={showBetaFeatures}
-            enableTheming={enableTheming}
-            isBrutalist={true}
-          />
+          <FlagStatusDashboard {...flags} />
           <BrutalistMode />
         </div>
 
-        {showBetaFeatures && <BetaFeaturesSection isBrutalist={true} />}
+        {showBetaFeatures && <BetaFeaturesSection />}
       </div>
     </div>
   );

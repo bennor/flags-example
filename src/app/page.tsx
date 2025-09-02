@@ -1,10 +1,11 @@
 import { encryptFlagValues, type FlagValuesType } from "flags";
 import { FlagValues } from "flags/react";
 import { Suspense } from "react";
-import { BrutalistLayout } from "../components/brutalist-layout";
-import { StandardLayout } from "../components/standard-layout";
+import { NewDesignLayout } from "../components/new-design/layout";
+import { ThemeToggle as NewDesignThemeToggle } from "../components/new-design/theme-toggle";
+import { StandardLayout } from "../components/standard/layout";
+import { ThemeToggle as StandardThemeToggle } from "../components/standard/theme-toggle";
 import { ThemeProvider } from "../components/theme-provider";
-import { ThemeToggle } from "../components/theme-toggle";
 import { betaFeaturesFlag, newDesignFlag, themingFlag } from "../flags";
 
 async function ConfidentialFlagValues({ values }: { values: FlagValuesType }) {
@@ -21,21 +22,25 @@ function PageContent({
   showBetaFeatures: boolean;
   enableTheming: boolean;
 }) {
+  const flags = { showNewDesign, showBetaFeatures, enableTheming };
+
   if (showNewDesign) {
     return (
-      <BrutalistLayout
-        showBetaFeatures={showBetaFeatures}
-        enableTheming={enableTheming}
-      />
+      <>
+        <NewDesignLayout
+          showBetaFeatures={showBetaFeatures}
+          enableTheming={enableTheming}
+        />
+        {enableTheming && <NewDesignThemeToggle />}
+      </>
     );
   }
 
   return (
-    <StandardLayout
-      showNewDesign={showNewDesign}
-      showBetaFeatures={showBetaFeatures}
-      enableTheming={enableTheming}
-    />
+    <>
+      <StandardLayout {...flags} />
+      {enableTheming && <StandardThemeToggle />}
+    </>
   );
 }
 
@@ -57,7 +62,6 @@ export default async function Home() {
         showBetaFeatures={showBetaFeatures}
         enableTheming={enableTheming}
       />
-      {enableTheming && <ThemeToggle showNewDesign={showNewDesign} />}
       <Suspense fallback={null}>
         <ConfidentialFlagValues values={flagValues} />
       </Suspense>

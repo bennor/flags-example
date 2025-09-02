@@ -1,4 +1,4 @@
-import { UI_TEXT } from "../constants/strings";
+import { UI_TEXT } from "../../constants/strings";
 
 export function BrutalistMode() {
   return (

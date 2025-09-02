@@ -1,7 +1,7 @@
 import { UI_TEXT } from "../../constants/strings";
 import type { FlagStatus } from "../../types/flags";
-import { BrutalistMode } from "../brutalist-mode";
 import { BetaFeaturesSection } from "./beta-features-section";
+import { BrutalistMode } from "./brutalist-mode";
 import { FlagStatusDashboard } from "./flag-status-dashboard";
 
 export function NewDesignLayout({

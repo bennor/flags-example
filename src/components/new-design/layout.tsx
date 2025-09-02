@@ -1,3 +1,4 @@
+import { UI_TEXT } from "../../constants/strings";
 import type { FlagStatus } from "../../types/flags";
 import { BrutalistMode } from "../brutalist-mode";
 import { BetaFeaturesSection } from "./beta-features-section";
@@ -18,10 +19,10 @@ export function NewDesignLayout({
       <div className="p-8">
         <header className="mb-16 border-b-4 border-black dark:border-white pb-8">
           <h1 className="text-6xl font-black uppercase tracking-wider mb-4 text-black dark:text-white">
-            Feature Flags Demo
+            {UI_TEXT.APP_TITLE}
           </h1>
           <h2 className="text-xl font-bold uppercase text-black dark:text-white">
-            Demonstrating dynamic feature toggles with the Flags SDK
+            {UI_TEXT.APP_SUBTITLE}
           </h2>
         </header>
 

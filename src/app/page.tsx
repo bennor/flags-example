@@ -6,6 +6,7 @@ import { ThemeToggle as NewDesignThemeToggle } from "../components/new-design/th
 import { StandardLayout } from "../components/standard/layout";
 import { ThemeToggle as StandardThemeToggle } from "../components/standard/theme-toggle";
 import { ThemeProvider } from "../components/theme-provider";
+import { FLAG_KEYS } from "../constants/strings";
 import { betaFeaturesFlag, newDesignFlag, themingFlag } from "../flags";
 
 async function ConfidentialFlagValues({ values }: { values: FlagValuesType }) {
@@ -50,9 +51,9 @@ export default async function Home() {
   const enableTheming = await themingFlag();
 
   const flagValues = {
-    "new-design": showNewDesign,
-    "beta-features": showBetaFeatures,
-    theming: enableTheming,
+    [FLAG_KEYS.NEW_DESIGN]: showNewDesign,
+    [FLAG_KEYS.BETA_FEATURES]: showBetaFeatures,
+    [FLAG_KEYS.THEMING]: enableTheming,
   };
 
   return (

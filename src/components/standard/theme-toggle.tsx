@@ -1,6 +1,7 @@
 "use client";
 
 import { Monitor, Moon, Sun } from "lucide-react";
+import { UI_TEXT } from "../../constants/strings";
 import { useTheme } from "../theme-provider";
 
 export function ThemeToggle() {
@@ -10,17 +11,17 @@ export function ThemeToggle() {
     {
       value: "system" as const,
       icon: <Monitor size={16} />,
-      label: "System",
+      label: UI_TEXT.THEME_LABELS.SYSTEM,
     },
     {
       value: "light" as const,
       icon: <Sun size={16} />,
-      label: "Light",
+      label: UI_TEXT.THEME_LABELS.LIGHT,
     },
     {
       value: "dark" as const,
       icon: <Moon size={16} />,
-      label: "Dark",
+      label: UI_TEXT.THEME_LABELS.DARK,
     },
   ];
 

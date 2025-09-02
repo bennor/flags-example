@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Feature Flags Demo
 
-## Getting Started
+A Next.js application demonstrating feature flags implementation using the [Flags SDK](https://flags-sdk.dev) with Vercel Edge Config integration.
 
-First, run the development server:
+## Features
 
+- **Feature Flags**: Three example flags with Edge Config backend
+- **Dual Design System**: Switch between modern and brutalist designs
+- **Dark Mode**: Full dark/light theme support
+- **Vercel Toolbar**: Local development flag management
+- **Edge Config Integration**: Centralized flag management
+
+## Feature Flags
+
+This demo includes three feature flags:
+
+- `new-design`: Toggles between modern UI and brutalist black & white design
+- `beta-features`: Shows/hides experimental feature sections
+- `dark-mode`: Controls application-wide dark theme
+
+## Setup
+
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Set up Vercel Edge Config:
+   - Create an Edge Config store in your Vercel dashboard
+   - Add these keys with boolean values:
+     - `new-design`: true/false
+     - `beta-features`: true/false
+     - `dark-mode`: true/false
+   - Copy the connection string to `.env.local`:
+   ```
+   EDGE_CONFIG=your_edge_config_url
+   FLAGS_SECRET=your_32_byte_base64_secret
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Link project to Vercel (for toolbar):
+```bash
+vercel link
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Run development server:
+```bash
+pnpm dev
+```
 
-## Learn More
+## Usage
 
-To learn more about Next.js, take a look at the following resources:
+- Visit [http://localhost:3000](http://localhost:3000) to see the demo
+- Use the Vercel Toolbar (appears in development) to toggle flags
+- Refresh the page to see flag changes take effect
+- Toggle flags in your Vercel Edge Config dashboard for persistent changes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Next.js 15** with App Router
+- **Flags SDK** for feature flag management
+- **Vercel Edge Config** for flag storage
+- **Tailwind CSS** for styling
+- **TypeScript** for type safety
 
-## Deploy on Vercel
+## Architecture
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/flags.ts`: Flag definitions with Edge Config integration
+- `src/app/page.tsx`: Main page with conditional rendering
+- `src/app/.well-known/vercel/flags/route.ts`: Discovery endpoint for Vercel Toolbar
+- Environment variables for secure configuration

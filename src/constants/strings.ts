@@ -14,7 +14,7 @@ export const FLAG_LABELS = {
 } as const;
 
 export const UI_TEXT = {
-  APP_TITLE: "Feature Flags Demo",
+  APP_TITLE: "Feature Flags Demo!",
   APP_SUBTITLE: "Demonstrating dynamic feature toggles with the Flags SDK",
   FLAG_STATUS_DASHBOARD: "Flag Status Dashboard",
   STATUS: "STATUS",
